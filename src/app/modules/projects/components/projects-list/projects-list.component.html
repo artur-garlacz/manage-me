@@ -1,0 +1,10 @@
+<div class="grid grid-cols-4 gap-4 py-4">
+  <div
+    class="border rounded-md p-4 hover:bg-gray-100 cursor-pointer"
+    *ngFor="let project of projects; let i = index"
+  >
+    <a routerLink="details/{{ project.id }}" [state]="project">
+      <app-project-item [project]="project"></app-project-item>
+    </a>
+  </div>
+</div>
