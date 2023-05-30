@@ -1,7 +1,13 @@
 <div class="p-4">
-  <div class="flex">
+  <div class="flex items-center gap-2">
     <h2 class="text-lg font-bold">All projects</h2>
-    <button (click)="openProjectCreationForm()">Create Project</button>
+
+    <a
+      class="border border-black py-1 px-2 rounded-md bg-black text-white hover:bg-gray-700"
+      routerLink="create"
+    >
+      Add new
+    </a>
   </div>
   <div>
     <router-outlet></router-outlet>

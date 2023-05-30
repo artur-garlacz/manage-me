@@ -5,16 +5,22 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { ProjectsListComponent } from 'src/app/modules/projects/components/projects-list/projects-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProjectItemComponent } from 'src/app/modules/projects/components/project-item/project-item.component';
+import { HeaderComponent } from 'src/app/modules/shared/components/header/header.component';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+import { FunctionalitiesModule } from 'src/app/modules/functionalities/functionalities.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent, ConfirmationDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,6 +29,11 @@ import { ProjectItemComponent } from 'src/app/modules/projects/components/projec
     AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    FunctionalitiesModule,
+    MatTableModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

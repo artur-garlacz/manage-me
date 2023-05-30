@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { ProjectModel } from '../models/project.model';
 import {
+  getDoc,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -8,7 +9,7 @@ import {
   doc,
   Firestore,
 } from '@angular/fire/firestore';
-import { collection } from 'firebase/firestore';
+import { CollectionReference, collection } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { ProjectModel } from 'src/app/modules/projects/models/project.model';
 
@@ -24,8 +25,8 @@ export class ProjectService {
     return addDoc(collection(this.fireStore, 'projects'), project);
   }
 
-  deleteProject(project: ProjectModel) {
-    let docRef = doc(this.fireStore, `projects/${project.id}`);
+  deleteProject(projectId: ProjectModel['id']) {
+    let docRef = doc(this.fireStore, `projects/${projectId}`);
 
     return deleteDoc(docRef);
   }
@@ -43,5 +44,30 @@ export class ProjectService {
     }) as Observable<ProjectModel[]>;
 
     return projects;
+  }
+
+  // async getProject(projectId: ProjectModel['id']) {
+  //   const project = await getDoc(doc(this.fireStore, `projects/${projectId}`));
+  //   return project.data() as Promise<Omit<ProjectModel, 'id'> | undefined>;
+  // }
+
+  getProject(
+    projectId: ProjectModel['id']
+  ): Observable<ProjectModel | undefined> {
+    const projectRef = collection(this.fireStore, 'projects');
+    const projectDocRef = doc(projectRef, projectId);
+    const project$ = new Observable<ProjectModel | undefined>((observer) => {
+      getDoc(projectDocRef)
+        .then((docSnapshot) => {
+          if (docSnapshot.exists()) {
+            observer.next(docSnapshot.data() as ProjectModel);
+          } else {
+            observer.next(undefined);
+          }
+          observer.complete();
+        })
+        .catch((error) => observer.error(error));
+    });
+    return project$;
   }
 }

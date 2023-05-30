@@ -1,0 +1,32 @@
+<div class="p-4">
+  <div class="flex items-center pb-2 gap-2">
+    <h3 class="font-semibold text-lg pb-1">
+      Functionalities ({{ functionalities.length }})
+    </h3>
+    <a
+      class="border border-black py-1 px-2 rounded-md bg-black text-white hover:bg-gray-700"
+      routerLink="create"
+    >
+      Add new
+    </a>
+  </div>
+
+  <table class="border-collapse w-full">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Priority</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of functionalities">
+        <td>{{ item.id.slice(0, 3) }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.priority }}</td>
+        <td>{{ item.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
