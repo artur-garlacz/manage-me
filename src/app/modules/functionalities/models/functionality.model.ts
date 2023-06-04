@@ -7,3 +7,9 @@ export type FunctionalityModel = {
   userId: string;
   status: string;
 };
+
+export enum FunctionalityStatus {
+  TODO = 'TODO',
+  DOING = 'DOING',
+  DONE = 'DONE',
+}

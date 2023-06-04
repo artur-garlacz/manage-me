@@ -1,7 +1,9 @@
-<div mat-dialog-content>
-  {{ data.message }}
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No</button>
-  <button mat-button cdkFocusInitial (click)="data.onConfirm()">Yes</button>
+<div class="bg-white p-4 rounded-md">
+  <div mat-dialog-content>
+    {{ data.message }}
+  </div>
+  <div mat-dialog-actions class="flex justify-around">
+    <button mat-button (click)="onNoClick()">No</button>
+    <button mat-button cdkFocusInitial (click)="data.onConfirm()">Yes</button>
+  </div>
 </div>

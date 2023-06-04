@@ -1,8 +1,8 @@
 <div
   class="w-full h-[90vh] flex justify-center items-center flex-col bg-white p-4"
 >
-  <h1>Create new project</h1>
-  <form class="w-[350px]" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+  <h1>Create new functionality for project</h1>
+  <form class="w-[350px]" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-1">
         <label>Name</label>
@@ -11,12 +11,6 @@
           placeholder="Type project name here"
           formControlName="name"
         />
-        <p
-          class="text-xs text-red-600"
-          *ngIf="projectForm.controls.name.hasError('required')"
-        >
-          Field is required
-        </p>
       </div>
 
       <div class="flex flex-col">
@@ -26,16 +20,26 @@
           placeholder="Type project description here"
           formControlName="description"
         />
-        <p
-          class="text-xs text-red-600"
-          *ngIf="projectForm.controls.description.hasError('required')"
-        >
-          Field is required
-        </p>
+      </div>
+      <div class="flex flex-col">
+        <label>Priority</label>
+        <select name="priority" formControlName="priority">
+          <option *ngFor="let option of priorityOptions" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <label>Assign to</label>
+        <select name="userId" formControlName="userId">
+          <option *ngFor="let user of users" [value]="user.id">
+            {{ user.firstName }} {{ user.lastName }}
+          </option>
+        </select>
       </div>
     </div>
     <button
-      [disabled]="!projectForm.valid"
+      [disabled]="!form.valid"
       class="border border-black p-1 mt-4 rounded-md bg-black text-white hover:bg-white hover:text-black w-full"
       type="submit"
     >

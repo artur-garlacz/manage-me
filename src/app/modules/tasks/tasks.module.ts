@@ -6,4 +6,4 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [],
   imports: [CommonModule, ReactiveFormsModule],
 })
-export class FunctionalitiesModule {}
+export class TasksModule {}

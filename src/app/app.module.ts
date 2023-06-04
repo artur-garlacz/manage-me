@@ -18,6 +18,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { FunctionalitiesModule } from 'src/app/modules/functionalities/functionalities.module';
+import * as firebase from 'firebase/app';
+
+firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, ConfirmationDialogComponent],
@@ -26,7 +29,9 @@ import { FunctionalitiesModule } from 'src/app/modules/functionalities/functiona
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
-    AngularFireStorageModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    // AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

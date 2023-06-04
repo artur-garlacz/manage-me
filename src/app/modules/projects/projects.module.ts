@@ -13,6 +13,8 @@ import { ProjectFormComponent } from 'src/app/modules/projects/components/projec
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectDetailComponent } from 'src/app/modules/projects/components/project-details/project-details.component';
 import { FunctionalitiesListComponent } from 'src/app/modules/functionalities/components/functionalities-list/functionalities-list.component';
+import { FunctionalityFormComponent } from 'src/app/modules/functionalities/components/functionality-form/functionality-form.component';
+import { TasksListComponent } from 'src/app/modules/tasks/components/tasks-list/tasks-list.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
   },
   { path: 'create', component: ProjectFormComponent },
   { path: 'details/:id', component: ProjectDetailComponent },
+  {
+    path: 'details/:id/functionalities/create',
+    component: FunctionalityFormComponent,
+  },
+  {
+    path: 'details/:id/functionalities/details/:functionalityId',
+    component: TasksListComponent,
+  },
 ];
 
 @NgModule({
@@ -32,6 +42,8 @@ const routes: Routes = [
     ProjectFormComponent,
     ProjectDetailComponent,
     FunctionalitiesListComponent,
+    FunctionalityFormComponent,
+    TasksListComponent,
   ],
   imports: [
     CommonModule,

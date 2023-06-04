@@ -1,0 +1,36 @@
+<div
+  class="w-full h-[90vh] flex justify-center items-center flex-col bg-white p-4"
+>
+  <h1>Sign In</h1>
+  <form class="w-[350px]" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col">
+        <label>User name</label>
+        <input
+          class="border border-black p-2 rounded-md"
+          placeholder="User name"
+          formControlName="userName"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label>Password</label>
+        <input
+          class="border border-black p-2 rounded-md"
+          formControlName="password"
+          type="password"
+        />
+      </div>
+    </div>
+    <button
+      class="border border-black p-1 mt-4 rounded-md bg-black text-white hover:bg-white hover:text-black w-full"
+      type="submit"
+    >
+      Sign In
+    </button>
+    <span
+      >Don't have an account?
+      <span class="redirect" routerLink="/auth/sign-up">Sign up</span></span
+    >
+  </form>
+</div>

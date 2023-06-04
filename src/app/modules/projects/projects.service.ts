@@ -46,11 +46,6 @@ export class ProjectService {
     return projects;
   }
 
-  // async getProject(projectId: ProjectModel['id']) {
-  //   const project = await getDoc(doc(this.fireStore, `projects/${projectId}`));
-  //   return project.data() as Promise<Omit<ProjectModel, 'id'> | undefined>;
-  // }
-
   getProject(
     projectId: ProjectModel['id']
   ): Observable<ProjectModel | undefined> {

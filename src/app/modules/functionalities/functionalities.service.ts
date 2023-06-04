@@ -32,9 +32,7 @@ export class FunctionalityService {
     return functionalities;
   }
 
-  addFunctionality(functionality: FunctionalityModel) {
-    functionality.id = doc(collection(this.fireStore, 'key')).id;
-
+  addFunctionality(functionality: Omit<FunctionalityModel, 'id'>) {
     return addDoc(
       collection(
         this.fireStore,
