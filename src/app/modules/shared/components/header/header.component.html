@@ -10,5 +10,9 @@
       <a routerLink="projects" routerLinkActive="font-medium">PROJECTS</a>
     </li>
   </ul>
-  <div></div>
+  <div *ngIf="this.authService.isLoggedIn">
+    {{ this.authService.isLoggedIn.firstName }}
+    {{ this.authService.isLoggedIn.lastName }}
+    <span (click)="this.authService.signOut()">| Wyloguj</span>
+  </div>
 </div>

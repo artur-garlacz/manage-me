@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FunctionalityService } from 'src/app/modules/functionalities/functionalities.service';
 import { FunctionalityForm } from 'src/app/modules/functionalities/models/functionality-form.model';
-import { FunctionalityStatus } from 'src/app/modules/functionalities/models/functionality.model';
-import { ProjectModel } from 'src/app/modules/projects/models/project.model';
-import { ProjectService } from 'src/app/modules/projects/projects.service';
+import {
+  FunctionalityModel,
+  FunctionalityStatus,
+} from 'src/app/modules/functionalities/models/functionality.model';
 import { UserModel } from 'src/app/modules/users/models/user.model';
 import { UserService } from 'src/app/modules/users/users.service';
 
@@ -16,6 +17,8 @@ import { UserService } from 'src/app/modules/users/users.service';
 export class FunctionalityFormComponent implements OnInit {
   form!: FormGroup<FunctionalityForm>;
   projectId?: string;
+  functionalityId?: string;
+  functionality?: FunctionalityModel;
   users: UserModel[] = [];
   priorityOptions = ['High', 'Medium', 'Low'];
   submitted = false;
@@ -30,8 +33,20 @@ export class FunctionalityFormComponent implements OnInit {
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
+    this.functionalityId = this.route.snapshot.params['functionalityId'];
 
     this.getUsers();
+
+    // if (this.functionalityId) {
+    //   this.functionalityService
+    //     .getFunctionality({
+    //       projectId: this.projectId!,
+    //       functionalityId: this.functionalityId,
+    //     })
+    //     .subscribe((fun) => {
+    //       this.functionality = fun;
+    //     });
+    // }
 
     this.form = this.fb.group({
       name: ['', [Validators.required]],
@@ -39,12 +54,35 @@ export class FunctionalityFormComponent implements OnInit {
       priority: ['High', [Validators.required]],
       userId: [''],
     });
+
+    if (this.functionalityId) {
+      this.functionalityService
+        .getFunctionality({
+          projectId: this.projectId!,
+          functionalityId: this.functionalityId,
+        })
+        .subscribe((fun) => {
+          this.functionality = fun;
+          this.updateFormWithFunctionality();
+        });
+    }
   }
 
   getUsers() {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
     });
+  }
+
+  updateFormWithFunctionality() {
+    if (this.functionality) {
+      this.form.patchValue({
+        name: this.functionality.name || '',
+        description: this.functionality.description || '',
+        priority: this.functionality.priority || 'High',
+        userId: this.functionality.userId || '',
+      });
+    }
   }
 
   get f() {
@@ -57,18 +95,34 @@ export class FunctionalityFormComponent implements OnInit {
     const { description, name, priority, userId } = this.form.value;
 
     if (description && name && priority && userId && this.projectId) {
-      this.functionalityService
-        .addFunctionality({
-          description,
-          name,
-          priority,
-          projectId: this.projectId,
-          status: FunctionalityStatus.TODO,
-          userId,
-        })
-        .then(() => {
-          this.router.navigateByUrl(`/projects/details/${this.projectId}`);
-        });
+      if (this.functionality) {
+        console.log(this.functionality);
+        this.functionalityService
+          .updateFunctionality({
+            ...this.functionality,
+            id: this.functionalityId!,
+            description,
+            name,
+            priority,
+            userId,
+          })
+          .then(() => {
+            this.router.navigateByUrl(`/projects/details/${this.projectId}`);
+          });
+      } else {
+        this.functionalityService
+          .addFunctionality({
+            description,
+            name,
+            priority,
+            projectId: this.projectId,
+            status: FunctionalityStatus.TODO,
+            userId,
+          })
+          .then(() => {
+            this.router.navigateByUrl(`/projects/details/${this.projectId}`);
+          });
+      }
     }
   }
 }

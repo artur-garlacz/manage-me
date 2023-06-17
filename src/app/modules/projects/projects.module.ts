@@ -14,7 +14,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectDetailComponent } from 'src/app/modules/projects/components/project-details/project-details.component';
 import { FunctionalitiesListComponent } from 'src/app/modules/functionalities/components/functionalities-list/functionalities-list.component';
 import { FunctionalityFormComponent } from 'src/app/modules/functionalities/components/functionality-form/functionality-form.component';
-import { TasksListComponent } from 'src/app/modules/tasks/components/tasks-list/tasks-list.component';
+import { TasksBoardComponent } from 'src/app/modules/tasks/components/tasks-board/tasks-board.component';
+import { TaskItemComponent } from 'src/app/modules/tasks/components/task-item/task-item.component';
+import { TaskFormComponent } from 'src/app/modules/tasks/components/task-form/task-form.component';
 
 const routes: Routes = [
   {
@@ -29,8 +31,20 @@ const routes: Routes = [
     component: FunctionalityFormComponent,
   },
   {
+    path: 'details/:id/functionalities/:functionalityId/edit',
+    component: FunctionalityFormComponent,
+  },
+  {
     path: 'details/:id/functionalities/details/:functionalityId',
-    component: TasksListComponent,
+    component: TasksBoardComponent,
+  },
+  {
+    path: 'details/:id/functionalities/:functionalityId/tasks/create',
+    component: TaskFormComponent,
+  },
+  {
+    path: 'details/:id/functionalities/:functionalityId/tasks/edit',
+    component: TaskFormComponent,
   },
 ];
 
@@ -43,7 +57,9 @@ const routes: Routes = [
     ProjectDetailComponent,
     FunctionalitiesListComponent,
     FunctionalityFormComponent,
-    TasksListComponent,
+    TasksBoardComponent,
+    TaskItemComponent,
+    TaskFormComponent,
   ],
   imports: [
     CommonModule,

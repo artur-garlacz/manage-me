@@ -9,6 +9,9 @@
     </a>
   </div>
 
+  <div *ngFor="let item of tasks">
+    <app-task-item [task]="item"></app-task-item>
+  </div>
   <table class="border-collapse w-full">
     <thead>
       <tr>

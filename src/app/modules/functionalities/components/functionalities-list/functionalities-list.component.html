@@ -18,14 +18,23 @@
         <th>Name</th>
         <th>Priority</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of functionalities">
         <td>{{ item.id.slice(0, 3) }}</td>
-        <td>{{ item.name }}</td>
+        <td>
+          <a routerLink="functionalities/details/{{ item.id }}">
+            {{ item.name }}
+          </a>
+        </td>
         <td>{{ item.priority }}</td>
         <td>{{ item.status }}</td>
+        <td class="flex gap-1 justify-center">
+          <button (click)="deleteFunctionality(item.id)">Delete</button>
+          <a routerLink="functionalities/{{ item.id }}/edit">Edit</a>
+        </td>
       </tr>
     </tbody>
   </table>

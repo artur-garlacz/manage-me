@@ -31,4 +31,18 @@ export class FunctionalitiesListComponent implements OnInit {
         console.log(functionalities);
       });
   }
+
+  deleteFunctionality(id: string) {
+    this.functionalityService.deleteFunctionality({
+      projectId: this.projectId,
+      id,
+    });
+  }
+
+  navigateToTasks(id: string) {
+    this.functionalityService.deleteFunctionality({
+      projectId: this.projectId,
+      id,
+    });
+  }
 }

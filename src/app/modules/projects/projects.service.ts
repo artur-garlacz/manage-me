@@ -51,7 +51,7 @@ export class ProjectService {
   ): Observable<ProjectModel | undefined> {
     const projectRef = collection(this.fireStore, 'projects');
     const projectDocRef = doc(projectRef, projectId);
-    const project$ = new Observable<ProjectModel | undefined>((observer) => {
+    const projects = new Observable<ProjectModel | undefined>((observer) => {
       getDoc(projectDocRef)
         .then((docSnapshot) => {
           if (docSnapshot.exists()) {
@@ -63,6 +63,6 @@ export class ProjectService {
         })
         .catch((error) => observer.error(error));
     });
-    return project$;
+    return projects;
   }
 }

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { ProjectModel } from '../models/project.model';
 import {
-  getDoc,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -9,16 +7,44 @@ import {
   doc,
   Firestore,
 } from '@angular/fire/firestore';
-import { CollectionReference, collection } from 'firebase/firestore';
+import { collection, getDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { FunctionalityModel } from 'src/app/modules/functionalities/models/functionality.model';
-import { ProjectModel } from 'src/app/modules/projects/models/project.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FunctionalityService {
   constructor(private fireStore: Firestore) {}
+
+  getFunctionality({
+    projectId,
+    functionalityId,
+  }: {
+    projectId: string;
+    functionalityId: string;
+  }): Observable<FunctionalityModel | undefined> {
+    let functionalitiesRef = collection(
+      this.fireStore,
+      `projects/${projectId}/functionalities`
+    );
+    const functionalityDocRef = doc(functionalitiesRef, functionalityId);
+    const functionality = new Observable<FunctionalityModel | undefined>(
+      (observer) => {
+        getDoc(functionalityDocRef)
+          .then((docSnapshot) => {
+            if (docSnapshot.exists()) {
+              observer.next(docSnapshot.data() as FunctionalityModel);
+            } else {
+              observer.next(undefined);
+            }
+            observer.complete();
+          })
+          .catch((error) => observer.error(error));
+      }
+    );
+    return functionality;
+  }
 
   getFunctionalities(projectId: string): Observable<FunctionalityModel[]> {
     let functionalitiesRef = collection(
@@ -42,8 +68,11 @@ export class FunctionalityService {
     );
   }
 
-  deleteFunctionality(functionality: FunctionalityModel) {
-    let docRef = doc(this.fireStore, `functionalities/${functionality.id}`);
+  deleteFunctionality(functionality: { projectId: string; id: string }) {
+    let docRef = doc(
+      this.fireStore,
+      `projects/${functionality.projectId}/functionalities/${functionality.id}`
+    );
 
     return deleteDoc(docRef);
   }

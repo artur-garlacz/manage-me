@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { FunctionalitiesModule } from 'src/app/modules/functionalities/functionalities.module';
 import * as firebase from 'firebase/app';
+import { TasksModule } from 'src/app/modules/tasks/tasks.module';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -39,6 +40,7 @@ firebase.initializeApp(environment.firebaseConfig);
     FunctionalitiesModule,
     MatTableModule,
     MatToolbarModule,
+    TasksModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

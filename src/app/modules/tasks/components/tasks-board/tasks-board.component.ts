@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskModel } from 'src/app/modules/tasks/task.model';
 import { TaskService } from 'src/app/modules/tasks/tasks.service';
 
 @Component({
-  selector: 'app-tasks-list',
-  templateUrl: './tasks-list.component.html',
-  styleUrls: ['./tasks-list.component.scss'],
+  selector: 'app-tasks-board',
+  templateUrl: './tasks-board.component.html',
+  styleUrls: ['./tasks-board.component.scss'],
 })
-export class TasksListComponent implements OnInit {
+export class TasksBoardComponent implements OnInit {
   tasks: TaskModel[] = [];
   constructor(
     private taskService: TaskService,
